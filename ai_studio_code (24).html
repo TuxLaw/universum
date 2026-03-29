@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASTRAL AWAKENING</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400&family=Outfit:wght@200;300;400;500&display=swap');
+
+        /* --------------------------
+           ROOT & RESET
+        -------------------------- */
+        :root {
+            --space-bg: #050409;
+            --stardust: #d1d2eb;
+            --nebula-glow: #7028e4;
+            --cyber-cyan: #1cfcff;
+            --translucent-dark: rgba(255, 255, 255, 0.02);
+            --border-light: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--space-bg);
+            color: var(--stardust);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 300;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--stardust);
+            transition: 0.4s ease;
+        }
+
+        /* --------------------------
+           BACKGROUND & ANIMATIONS
+        -------------------------- */
+        .universe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .nebula {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(112, 40, 228, 0.15) 0%, rgba(28, 252, 255, 0.05) 40%, transparent 70%);
+            filter: blur(80px);
+            border-radius: 50%;
+            animation: breathe 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes breathe {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        /* --------------------------
+           NAVIGATION
+        -------------------------- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(5,4,9,0.9), transparent);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 300;
+            opacity: 0.7;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--cyber-cyan);
+            text-shadow: 0 0 10px rgba(28, 252, 255, 0.5);
+        }
+
+        /* --------------------------
+           HERO SECTION
+        -------------------------- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* The Soul Ring - Spiritual + Space Object */
+        .orb-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 40px;
+            perspective: 800px;
+        }
+
+        .ring {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+        }
+
+        .ring:nth-child(1) { animation: rotate 20s linear infinite; }
+        .ring:nth-child(2) { border-color: rgba(28, 252, 255, 0.3); animation: rotate-inverse 15s linear infinite; transform-origin: 50% 50%; }
+        .ring:nth-child(3) { border-color: rgba(112, 40, 228, 0.3); animation: rotate 25s linear infinite; transform: rotateX(45deg); }
+        
+        .core {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px; height: 20px;
+            background: var(--cyber-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 50px 20px rgba(28, 252, 255, 0.5),
+                        0 0 100px 40px rgba(112, 40, 228, 0.3);
+            animation: pulse-core 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotateY(0deg) rotateX(20deg) rotateZ(0deg); }
+            100% { transform: rotateY(360deg) rotateX(20deg) rotateZ(360deg); }
+        }
+
+        @keyframes rotate-inverse {
+            0% { transform: rotateY(360deg) rotateX(-20deg) rotateZ(0deg); }
+            100% { transform: rotateY(0deg) rotateX(-20deg) rotateZ(-360deg); }
+        }
+
+        @keyframes pulse-core {
+            0% { box-shadow: 0 0 40px 10px rgba(28, 252, 255, 0.5); transform: translate(-50%, -50%) scale(1); }
+            100% { box-shadow: 0 0 70px 30px rgba(28, 252, 255, 0.8), 0 0 120px 50px rgba(112, 40, 228, 0.6); transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            letter-spacing: 0.3em;
+            margin-right: -0.3em; /* offsets tracking */
+            background: linear-gradient(90deg, #fff, var(--stardust), #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 2;
+        }
+
+        .subtitle {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.3em;
+            font-weight: 200;
+            text-transform: uppercase;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 2;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 60px;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border-light), transparent);
+            overflow: hidden;
+        }
+        
+        .scroll-indicator::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 1px;
+            height: 20px;
+            background: var(--cyber-cyan);
+            animation: dropScroll 2s infinite ease-out;
+            box-shadow: 0 0 10px 2px var(--cyber-cyan);
+        }
+
+        @keyframes dropScroll {
+            0% { top: -20px; opacity: 1; }
+            100% { top: 60px; opacity: 0; }
+        }
+
+        /* --------------------------
+           MAIN CONTENT / GRID
+        -------------------------- */
+        section {
+            padding: 100px 10vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .philosophy-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 100px auto;
+        }
+
+        .philosophy-text p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            font-weight: 300;
+            color: #ececec;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--translucent-dark);
+            border: 1px solid var(--border-light);
+            border-radius: 1px;
+            padding: 50px 40px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.4s ease, transform 0.4s ease;
+            cursor: pointer;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top right, rgba(28, 252, 255, 0.1), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(28, 252, 255, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5),
+                        inset 0 0 20px rgba(112, 40, 228, 0.1);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            color: var(--cyber-cyan);
+            margin-bottom: 20px;
+            letter-spacing: 0.2em;
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --------------------------
+           FOOTER
+        -------------------------- */
+        footer {
+            margin-top: 100px;
+            border-top: 1px solid var(--border-light);
+            padding: 50px 10vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 200;
+        }
+
+        /* --------------------------
+           SCROLL REVEAL ANIMATIONS
+        -------------------------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 20px; justify-content: center; }
+            .nav-links { display: none; } /* Kept minimal for mobile */
+            .orb-container { width: 200px; height: 200px; }
+            footer { flex-direction: column; gap: 20px; text-align: center; }
+            .title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cosmos Background -->
+    <div class="universe">
+        <div class="nebula"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <nav>
+        <div class="logo">Ether</div>
+        <div class="nav-links">
+            <a href="#philosophy">Origins</a>
+            <a href="#ascension">Ascension</a>
+            <a href="#">Frequency</a>
+        </div>
+    </nav>
+
+    <!-- Hero / Arrival Section -->
+    <header class="hero">
+        <div class="orb-container reveal active">
+            <!-- 3D Spiritual Geometries -->
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <!-- Glowing Inner Soul / Singularity -->
+            <div class="core"></div>
+        </div>
+        <h1 class="title reveal active">AETHERIAL</h1>
+        <p class="subtitle reveal active" style="transition-delay: 0.2s;">Awaken The Infinite Stardust</p>
+        
+        <div class="scroll-indicator"></div>
+    </header>
+
+    <!-- Connecting Meaning / Main Content -->
+    <main>
+        <section id="philosophy">
+            <div class="philosophy-text reveal">
+                <p>
+                    "The universe is not merely outside you. Quantum geometry weaves through your consciousness.
+                    Look within, and observe the cosmos awakening to itself."
+                </p>
+            </div>
+
+            <div class="grid" id="ascension">
+                <!-- Transcendence Node 1 -->
+                <div class="card reveal" style="transition-delay: 0.1s;">
+                    <div class="card-number">01 / AWARENESS</div>
+                    <h3>Spiritual Singularity</h3>
+                    <p>
+                        Beyond time and three-dimensional space, the ego fragments dissolve into nothingness. Tune your frequency to the subtle vibrations of cosmic dawn.
+                    </p>
+                </div>
+                <!-- Transcendence Node 2 -->
+                <div class="card reveal" style="transition-delay: 0.3s;">
+                    <div class="card-number">02 / EVOLUTION</div>
+                    <h3>Neural Alignment</h3>
+                    <p>
+                        Activate dormant crystalline DNA structures through pure quantum resonance. Synthesize physical reality with upper astral plains in total serenity.
+                    </p>
+                </div>
+                <!-- Transcendence Node 3 -->
+                <div class="card reveal" style="transition-delay: 0.5s;">
+                    <div class="card-number">03 / INFINITY</div>
+                    <h3>Cosmic Self</h3>
+                    <p>
+                        A deep dive into interconnected matrices. Remember what you have always known. The self and the starlight are one undividable breath.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Area -->
+    <footer>
+        <div class="footer-text">
+            © <script>document.write(new Date().getFullYear())</script> AETHERIAL PARADIGM
+        </div>
+        <div class="nav-links" style="gap:20px;">
+            <a href="#">TRANSMIT</a>
+            <a href="#">SYSTEMS</a>
+            <a href="#">VOID</a>
+        </div>
+    </footer>
+
+    <!-- JS for sleek entry reveals on scroll -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            const hiddenElements = document.querySelectorAll('.reveal');
+            hiddenElements.forEach((el) => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
